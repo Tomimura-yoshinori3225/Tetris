@@ -82,3 +82,70 @@ void SceneManager_Initialize(GAME_MODE mode)
 	next_mode = game_mode;
 }
 
+/****************************************
+
+*シーン管理機能：更新処理
+
+*引数：なし
+
+*戻り値：なし
+
+****************************************/
+
+void SceneManager_Update(void)
+{
+	//前フレームとゲームモードが違っていたらシーンを切り替える
+	if (game_mode != next_mode)
+	{
+		SceneManager_Initialize(next_mode);
+	}
+
+	//各画面の処理
+	switch (game_mode)
+	{
+	case E_TITLE:
+		TitleScene_Update();
+		break;
+	case E_GAMEMAIN:
+		GameMainScene_Update();
+		break;
+	case E_RANKING:
+		RankingScene_Update();
+		break;
+	case E_END:
+	default:
+		EndScene_Update();
+		break;
+	}
+}
+
+/************************
+
+*シーン管理機能：描画処理
+
+*引数：なし
+
+*戻り値：なし
+
+****************************/
+
+void SceneManager_Draw(void)
+{
+	//各画面の処理
+	switch (game_mode)
+	{
+	case E_TITLE:
+		TitleScene_Draw();
+		break;
+	case E_GAMEMAIN:
+		GameMainScene_Draw();
+		break;
+	case E_RANKING:
+		RankingScene_Draw();
+		break;
+	case E_END:
+	default:
+		EndScene_Draw();
+		break;
+	}
+}
