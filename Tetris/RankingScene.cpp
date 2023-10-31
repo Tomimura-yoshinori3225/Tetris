@@ -169,5 +169,47 @@ void Set_RankingMode(int mode)
 	DispMode = mode;
 }
 
+/********************************
+
+*ランキング画面：スコア取得処理
+
+*引数：なし
+
+*戻り値：なし
+
+*******************************************/
+
+void Set_RankingScene(int score)
+{
+	New_Score.score = score;
+}
+
+
+/************************************************
+
+*ランキング画面：ファイル読み込み処理
+
+*引数：なし
+
+*戻り値：なし
+
+**************************************************/
+
+void file_read(void)
+{
+	FILE* fp = NULL;
+	int i;
+
+	OutputDebugString("ファイルが読み込めません");
+	OutputDebugString("ファイルを生成します");
+	file_write();
+}
+else
+{
+	for (i = 0; i < RANKING_MAX; i++)
+	{
+		fscanf_s(fp,"%2d",%[^,],%10d/n)
+	}
+}
 
 
