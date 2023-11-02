@@ -208,8 +208,102 @@ else
 {
 	for (i = 0; i < RANKING_MAX; i++)
 	{
-		fscanf_s(fp,"%2d",%[^,],%10d/n)
+		fscanf_s(fp, "%2d, % [^,], %10d / n", &Ranking_Data[i].rank, Ranking_Data[i].name,
+			RANKING_NAME_LEN, &Ranking_Data[i].score);
+	}
+
+	fclose(fp);
 	}
 }
+
+/**************************************
+
+*ランキング画面：ファイル書き込み処理
+
+*引数：なし
+
+*戻り値：なし
+
+******************************************/
+
+
+void file_write(void)
+{
+	FILE* fp = NULL;
+	int i;
+
+	OutputDebugString("ファイルを書き込みます");
+	fopen_s(&fp, RANKING_FILE, "W");
+
+	if (fp == NULL)
+	{
+		OutputDebugString("ファイルが書き込めません");
+	}
+	else
+	{
+		for (i = 0; i < RANKING_MAX; i++)
+		{
+			fprintf(fp, "%2d,%[^,],%10d/n", &Ranking_Data[i].rank, Ranking_Data[i].name,
+				RANKING_NAME_LEN, &Ranking_Data[i].score);
+		}
+		fclose(fp);
+	}
+}
+
+
+/***********************************************
+
+*ランキング画面：ランキングソート処理
+
+*引数：なし
+
+*戻り値：なし
+
+*******************************************/
+
+void rnking_sort(void)
+{
+	int i, j;      //ループカウンタ
+	T_RANKING tmp;        //退避領域
+
+	//一番下のスコアを更新する
+	Ranking_Data[RANKING_MAX - 1] = New_Score;
+
+	//データのソートを行う
+	for (i = 0; i < RANKING_MAX; i++)
+	{
+		for (j = i + 1; j < RANKING_MAX; j++)
+		{
+
+			if (Ranking_Data[i].score < Ranking_Data[j].score)
+			{
+
+				tmp = Ranking_Data[i];
+				Ranking_Data[i] = Ranking_Data[j];
+				Ranking_Data[j] = tmp;
+			}
+		}
+	}
+
+
+	//順位を上からふっていく
+	for (i = 0; i < RANKING_MAX; i++)
+	{
+		Ranking_Data[i].rank = i + 1;
+	}
+
+	//ファイルに書き込みを行う
+	file_write();
+}
+
+/****************************************
+
+*ランキング画面：名前入力処理
+
+*引数：なし
+
+*戻り値：なし
+
+********************************************/
 
 
