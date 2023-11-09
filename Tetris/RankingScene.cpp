@@ -306,4 +306,33 @@ void rnking_sort(void)
 
 ********************************************/
 
+void ranking_input_name(void)
+{
+	int c;
+	//ƒJ[ƒ\ƒ‹‘€ìˆ—
+	if (GetButtonDown(XINPUT_BUTTON_DPAD_LEFT) == TRUE)
+	{
+		if (Cursor.x > 0)
+		{
+			Cursor.x--;
+		}
+	}
+	if (GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT) == TRUE)
+	{
+		if (Cursor.x < 12)
+		{
+			Cursor.x++;
+		}
+	}
+	if (GetButtonDown(XINPUT_BUTTON_DPAD_UP) == TRUE)
+	{
+		if (Cursor.y > 0)
+		{
+			Cursor.y--;
+		}
+	}
+	if (GetButtonDown(XINPUT_BUTTON_DAPD_DOWN) == TRUE)
+	{
+
+	}
 
