@@ -183,3 +183,55 @@ int GetButtonDown(int button)
 	}
 	return ret;
 }
+
+/**************************************
+*入力制御機能：離したか判定処理
+*引数：XINPUTのボタン情報
+*XINPUT_BUTTON_DPAD_UP       (0)            //デジタル方向ボタン上
+*XINPUT_BUTTON_DPAD_DOWN       (1)          //デジタル方向ボタン下
+*XINPUT_BUTTON_DPAD_LEFT       (2)          //デジタル方向ボタン左
+*XINPUT_BUTTON_DPAD_RIGHT      (3)          //デジタル方向ボタン右
+*XINPUT_BUTTON_STATE           (4)          //STATEボタン
+*XINPUT_BUTTON_BACK            (5)          //BACKボタン
+*XINPUT_BUTTON_LEFT_THUMB      (6)          //左スティック押し込み
+*XINPUT_BUTTON_RIGHT_THUMB     (7)          //右スティック押し込み
+*XINPUT_BUTTON_LEFT_SHOULDER   (8)          //LBボタン
+*XINPUT_BUTTON_RIGHT_SHOULDER  (9)          //RBボタン
+*XINPUT_BUTTON_A                       (12) //Aボタン
+*XINPUT_BUTTON_B                       (13) //Bボタン
+*XINPUT_BUTTON_X                       (14) //Xボタン
+*XINPUT_BUTTON_Y                       (15) //Yボタン
+*戻り値：TRUE(押した瞬間),FALSE(押した瞬間ではない）
+*********************************************/
+
+int GetButtonUp(int button)
+{
+	int ret = FALSE;
+
+	if (button_state[button] == E_RELEASED)
+	{
+		ret = TRUE;
+	}
+	return ret;
+}
+
+/********************************
+
+*入力制御機能：ゲームボタン処理
+
+*引数：なし
+
+*戻り値：TRUE(押した瞬間）、FALSE（押した瞬間ではない）
+************************************************/
+
+int GetExitButton(void)
+{
+	int ret = FALSE;
+
+	if ((GetButtonDown(XINPUT_BUTTON_BACK) == TRUE) ||
+		(CheckHitKey(KEY_INPUT_ESCAPE) == TRUE))
+	{
+		ret = TRUE;
+	}
+	return ret;
+}
