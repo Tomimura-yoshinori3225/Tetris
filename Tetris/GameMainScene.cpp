@@ -93,7 +93,7 @@ void GameMainScene_Update(void)
 	Score = Get_Line() * 50;
 
 	//ê∂ê¨Ç≈Ç´Ç»Ç≠Ç»Ç¡ÇΩÇÁ
-	if (Get_GanerateFlg() != TRUE)
+	if (Get_GenerateFlg() != TRUE)
 	{
 		PlaySoundMem(GameOver_sound, DX_PLAYTYPE_BACK, FALSE);
 		Change_Scene(E_RANKING);

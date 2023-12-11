@@ -25,7 +25,7 @@ typedef struct
 {
 	int rank;                       //ランク
 	char name[RANKING_NAME_LEN];    //名前
-	int scene;                      //スコア
+	int score;                      //スコア
 }T_RANKING;
 
 
@@ -38,7 +38,7 @@ typedef struct
 
 /******************************
 
-*グローバル変数定義
+*グローバル変数宣言
 
 **********************************/
 
@@ -142,12 +142,12 @@ void RankingScene_Draw(void)
 		ranking_input_name_draw();
 		break;
 
-	case RAKING_DISP_MODE:
+	case RANKING_DISP_MODE:
 	default:
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			DrawFormatString(20, 10 + (i * 25), GetColor(255, 255, 255), "%2d,%10s,%10d", Ranking_Date[i].rank,
-				Ranking_Date[i].name, Ranking_Date[i].scone);
+			DrawFormatString(20, 10 + (i * 25), GetColor(255, 255, 255), "%2d,%10s,%10d", Ranking_Data[i].rank,
+				Ranking_Data[i].name, Ranking_Data[i].score);
 		}
 		break;
 
@@ -200,21 +200,29 @@ void file_read(void)
 	FILE* fp = NULL;
 	int i;
 
-	OutputDebugString("ファイルが読み込めません");
-	OutputDebugString("ファイルを生成します");
-	file_write();
-}
-else
-{
-	for (i = 0; i < RANKING_MAX; i++)
-	{
-		fscanf_s(fp, "%2d, % [^,], %10d / n", &Ranking_Data[i].rank, Ranking_Data[i].name,
-			RANKING_NAME_LEN, &Ranking_Data[i].score);
-	}
+	OutputDebugString("ファイルを読み込みます");
+	fopen_s(&fp, RANKING_FILE, "r");
 
-	fclose(fp);
+	if (fp == NULL)
+	{
+
+		OutputDebugString("ファイルが読み込めません");
+		OutputDebugString("ファイルを生成します");
+		file_write();
+	}
+	else
+	{
+		for (i = 0; i < RANKING_MAX; i++)
+		{
+			fscanf_s(fp, "%2d, % [^,], %10d / n", &Ranking_Data[i].rank, Ranking_Data[i].name,
+				RANKING_NAME_LEN, &Ranking_Data[i].score);
+		}
+
+		fclose(fp);
 	}
 }
+
+
 
 /**************************************
 
@@ -331,7 +339,7 @@ void ranking_input_name(void)
 			Cursor.y--;
 		}
 	}
-	if (GetButtonDown(XINPUT_BUTTON_DAPD_DOWN) == TRUE)
+	if (GetButtonDown(XINPUT_BUTTON_DPAD_DOWN) == TRUE)
 	{
 		if (Cursor.y < 4)
 		{
@@ -357,7 +365,7 @@ void ranking_input_name(void)
 			if (Cursor.x < 10)
 			{
 				c = '0' + Cursor.x;
-				New_score.name[name_num++] = c;
+				New_Score.name[name_num++] = c;
 			}
 			else if (Cursor.x == 10)
 			{
@@ -367,7 +375,7 @@ void ranking_input_name(void)
 			else
 			{
 				DispMode = RANKING_DISP_MODE;
-				ranking_sort(;)
+				ranking_sort();
 			}
 		}
 	}

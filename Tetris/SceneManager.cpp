@@ -71,11 +71,11 @@ void SceneManager_Initialize(GAME_MODE mode)
 		{
 			Set_RankingMode(RANKING_DISP_MODE);      //ランキング描画モードで起動
 		}
-		read_error = RankingScore_Initialize();      //ランキング画面の初期化
+		read_error = RankingScene_Initialize();      //ランキング画面の初期化
 		break;
 	case E_END:
 		default:
-			EndScene_initialize();                   //エンドの初期化
+			EndScene_Initialize();                   //エンドの初期化
 			break;
 	}
 	game_mode = mode;

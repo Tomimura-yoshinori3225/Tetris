@@ -227,7 +227,7 @@ void Block_Update(void)
 
 	//ブロックの回転（反時計周り）
 	if ((GetButtonDown(XINPUT_BUTTON_B) == TRUE) ||
-		(GetButtonDown(XIPUT_BUTTON_X) == TRUE))
+		(GetButtonDown(XINPUT_BUTTON_X) == TRUE))
 	{
 		turn_block(TURN_CROCKWICE);
 	}
@@ -634,7 +634,7 @@ void lock_block(int x, int y)
 
 void sheck_line(void)
 {
-	int i, j;            //ループカウンタ
+	int i, j,k;            //ループカウンタ
 
 	for (i = 0; i < FIELD_HEIGHT - 1; i++)
 	{

@@ -107,11 +107,11 @@ void InoutContorol_Update(void)
 			{
 			case E_NONE:
 			case E_RELEASED:
-				button_state[i] = E_NONE;
+				button_state[i] = E_CLICK;
 				break;
 			case E_CLICK:
 			case E_PRESS:
-				button_state[i] = E_RELEASED;
+				button_state[i] = E_PRESS;
 				break;
 			default:
 				button_state[i] = E_NONE;

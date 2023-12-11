@@ -20,7 +20,7 @@
 
 ********************************/
 
-int Block_initialize(void);               //‰Šú‰»ˆ—
+int Block_Initialize(void);               //‰Šú‰»ˆ—
 void Block_Update(void);                  //XVˆ—
 void Block_Draw(void);                    //•`‰æˆ—
 

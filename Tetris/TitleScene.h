@@ -22,4 +22,4 @@
 
 int TitleScene_Initialize(void);
 void TitleScene_Update(void);
-void Title_Scene_Draw(void);
+void TitleScene_Draw(void);
