@@ -22,7 +22,7 @@
 #define DROP_BLOCK_INIT_Y    (-1)         //落ちてくるブロックの初期Y座標
 #define DROP_SPEED             (60)         //落下時間
 #define TURN_CROCKWICE         (0)          //時計回りに回転させる
-#define TRUE_ANTICROCKWICE     (1)          //反時計回りに回転させる
+#define TURN_ANTICROCKWICE     (1)          //反時計回りに回転させる
 
 
 
@@ -75,7 +75,7 @@ const int C_BLOCK_TABLE[BLOCK_TYPE_MAX][BLOCK_TROUT_SIZE][BLOCK_TROUT_SIZE] = {
 	{
 		{0,0,0,0},
 	    {0,0,0,4},
-	    {4,4,4,4},
+	    {0,4,4,4},
 	    {0,0,0,0}
     },
 	{
@@ -154,13 +154,13 @@ int Block_Initialize(void)
 	int i = 0;
 
 	//ブロックの画像の読み込み
-	ret = LoadDivGraph("image/blocl.png", E_BLOCK_IMAGE_MAX, 10, 1, BLOCK_SIZE,
+	ret = LoadDivGraph("images/block.png", E_BLOCK_IMAGE_MAX, 10, 1, BLOCK_SIZE,
 		BLOCK_SIZE, BlockImage);
 
 	//SEの読み込み
-	SoundEffect[0] = LoadSoundMem("sound/SE3.mp3");
-	SoundEffect[1] = LoadSoundMem("sound/SE4.mp3");
-	SoundEffect[2] = LoadSoundMem("sound/SE5.wav");
+	SoundEffect[0] = LoadSoundMem("sounds/SE3.mp3");
+	SoundEffect[1] = LoadSoundMem("sounds/SE4.mp3");
+	SoundEffect[2] = LoadSoundMem("sounds/SE5.wav");
 
 	//音量の調整
 	ChangeVolumeSoundMem(150, SoundEffect[0]);
@@ -227,12 +227,19 @@ void Block_Update(void)
 	}
 
 	//ブロックの回転（反時計周り）
+	if ((GetButtonDown(XINPUT_BUTTON_A) == TRUE) ||
+		(GetButtonDown(XINPUT_BUTTON_Y) == TRUE))
+	{
+		turn_block(TURN_ANTICROCKWICE);
+	}
+
+	//ブロックの回転（時計周り）
 	if ((GetButtonDown(XINPUT_BUTTON_B) == TRUE) ||
 		(GetButtonDown(XINPUT_BUTTON_X) == TRUE))
 	{
 		turn_block(TURN_CROCKWICE);
 	}
-	
+
 	//落下処理
 	WaitTime++;              //カウンタの更新
 	if (WaitTime > DROP_SPEED)
@@ -639,7 +646,7 @@ void check_line(void)
 
 	for (i = 0; i < FIELD_HEIGHT - 1; i++)
 	{
-		for (j = 0; j < FIELD_WIDTH - 1; j++)
+		for (j = 1; j < FIELD_WIDTH; j++)
 		{
 			//行の途中が空いているか？
 			if (Field[i][j] == E_BLOCK_EMPTY)
