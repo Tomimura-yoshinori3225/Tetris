@@ -28,4 +28,4 @@ void RankingScene_Update(void);
 void RankingScene_Draw(void);
 
 void Set_RankingMode(int mode);
-void Set_RankingScore(int Score);
+void Set_RankingScore(int score);

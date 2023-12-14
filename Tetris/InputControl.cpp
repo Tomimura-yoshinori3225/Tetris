@@ -7,7 +7,7 @@
 
 *******************************/
 
-#define XINPUT_BUTTON_MAX　(16)                  //コントローラーのボタン数
+#define XINPUT_BUTTON_MAX (16)                  //コントローラーのボタン数
 
 
 /**********************************
@@ -55,7 +55,7 @@ void InputControl_Initialize(void)
 {
 	int i;               //ループカウンタ
 
-	//乳直状態の初期化
+	//入力状態の初期化
 	for (i = 0; i < XINPUT_BUTTON_MAX; i++)
 	{
 		button_state[i] = E_NONE;
@@ -72,9 +72,9 @@ void InputControl_Initialize(void)
 
 ****************************************************/
 
-void InoutContorol_Update(void)
+void InputControl_Update(void)
 {
-	int i;                   //ループカウンタ
+	int i;                               //ループカウンタ
 	XINPUT_STATE input_controller;       //コントローラー入力情報
 
 	//コントローラーの入力情報を取得
@@ -103,11 +103,11 @@ void InoutContorol_Update(void)
 		}
 		else
 		{
-			switct (button_state[1])
+			switch (button_state[i])
 			{
 			case E_NONE:
 			case E_RELEASED:
-				button_state[i] = E_CLICK;
+				button_state[i] = E_NONE;
 				break;
 			case E_CLICK:
 			case E_PRESS:

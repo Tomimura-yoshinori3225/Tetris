@@ -73,7 +73,7 @@ void ranking_input_name_draw(void);   //名前入力描画処理
 
 ****************************************/
 
-int RankinguScene_Initialize(void)
+int RankingScene_Initialize(void)
 {
 	int ret = 0;
 	file_read();
@@ -179,7 +179,7 @@ void Set_RankingMode(int mode)
 
 *******************************************/
 
-void Set_RankingScene(int score)
+void Set_RankingScore(int score)
 {
 	New_Score.score = score;
 }
@@ -241,7 +241,7 @@ void file_write(void)
 	int i;
 
 	OutputDebugString("ファイルを書き込みます");
-	fopen_s(&fp, RANKING_FILE, "W");
+	fopen_s(&fp, RANKING_FILE, "w");
 
 	if (fp == NULL)
 	{
@@ -251,7 +251,7 @@ void file_write(void)
 	{
 		for (i = 0; i < RANKING_MAX; i++)
 		{
-			fprintf(fp, "%2s,%[^,],%10d/n", &Ranking_Data[i].rank, Ranking_Data[i].name,
+			fprintf(fp, "%2d,%s,%10d\n", &Ranking_Data[i].rank, Ranking_Data[i].name,
 				RANKING_NAME_LEN, &Ranking_Data[i].score);
 		}
 		fclose(fp);
@@ -269,7 +269,7 @@ void file_write(void)
 
 *******************************************/
 
-void rnking_sort(void)
+void ranking_sort(void)
 {
 	int i, j;      //ループカウンタ
 	T_RANKING tmp;        //退避領域
@@ -422,3 +422,4 @@ void ranking_input_name_draw(void)
 		(Cursor.x * 50) + 330, (Cursor.y * 50) + 370,
 		GetColor(255, 255, 255), FALSE);
 
+}

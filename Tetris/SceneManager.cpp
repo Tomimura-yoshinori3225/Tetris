@@ -100,7 +100,7 @@ void SceneManager_Update(void)
 		SceneManager_Initialize(next_mode);
 	}
 
-	//各画面の処理
+	//各画面の更新処理
 	switch (game_mode)
 	{
 	case E_TITLE:

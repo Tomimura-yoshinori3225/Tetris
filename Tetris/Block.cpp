@@ -19,7 +19,7 @@
 #define BLOCK_STOCK_POS_X    (500)       //ストックされたブロックの座標（X座標）
 #define BLOCK_STOCK_POS_Y    (350)       //ストックされたブロックの座標（Y座標）
 #define DROP_BLOCK_INIT_X    (4)         //落ちてくるブロックの初期X座標
-#define DROP_BLOCK_INIT_Y    (4)         //落ちてくるブロックの初期Y座標
+#define DROP_BLOCK_INIT_Y    (-1)         //落ちてくるブロックの初期Y座標
 #define DROP_SPEED             (60)         //落下時間
 #define TURN_CROCKWICE         (0)          //時計回りに回転させる
 #define TRUE_ANTICROCKWICE     (1)          //反時計回りに回転させる
@@ -114,6 +114,7 @@ int DropBlock_X;                                       //落ちるブロックのX座標
 int DropBlock_Y;                                       //落ちるブロックのY座標
 int WaitTime;           //待機時間
 int Stock_Flg;          //ストックフラグ
+int Generate_Flg;       //生成フラグ
 int DeleteLine;         //消したラインの数
 int SoundEffect[3];     //SE
 
@@ -329,7 +330,7 @@ int Get_GenerateFlg(void)
 
 **************************************/
 
-int Get_LINE(void)
+int Get_Line(void)
 {
 	return DeleteLine;
 }
@@ -389,7 +390,7 @@ void create_block(void)
 	//新しいブロックをセット＆次のブロックを生成
 	for (i = 0; i < BLOCK_TROUT_SIZE; i++)
 	{
-		for (j = 0; j < BLOCK_TROUT_SIZE; i++)
+		for (j = 0; j < BLOCK_TROUT_SIZE; j++)
 		{
 			DropBlock[i][j] = Next[i][j];
 			Next[i][j] = (BLOCK_STATE)C_BLOCK_TABLE[block_type][i][j];
@@ -513,7 +514,7 @@ void change_block(void)
 *
 ********************************/
 
-void Turn_block(int clockwise)
+void turn_block(int clockwise)
 {
 	BLOCK_STATE temp[BLOCK_TROUT_SIZE][BLOCK_TROUT_SIZE] = { E_BLOCK_EMPTY };    //退避領域
 
@@ -615,7 +616,7 @@ void lock_block(int x, int y)
 		{
 			if (DropBlock[i][j] != E_BLOCK_EMPTY)
 			{
-				Field[y + 1][x + 1] = DropBlock[i][j];
+				Field[y + i][x + j] = DropBlock[i][j];
 			}
 		}
 	}
@@ -632,13 +633,13 @@ void lock_block(int x, int y)
 
 **********************************/
 
-void sheck_line(void)
+void check_line(void)
 {
-	int i, j,k;            //ループカウンタ
+	int i, j, k;            //ループカウンタ
 
 	for (i = 0; i < FIELD_HEIGHT - 1; i++)
 	{
-		for (j = 0; j < FIELD_WIDTH - 1; i++)
+		for (j = 0; j < FIELD_WIDTH - 1; j++)
 		{
 			//行の途中が空いているか？
 			if (Field[i][j] == E_BLOCK_EMPTY)
@@ -653,7 +654,7 @@ void sheck_line(void)
 			DeleteLine++;
 
 			//一段下げる
-			for (k = 0; k > 0; k--)
+			for (k = i; k > 0; k--)
 			{
 				for (j = 1; j < FIELD_WIDTH; j++)
 				{
