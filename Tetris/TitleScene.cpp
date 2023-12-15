@@ -107,11 +107,11 @@ void TitleScene_Update(void)
 			Change_Scene(E_GAMEMAIN);
 			break;
 
-		case1:
+		case 1:
 			Change_Scene(E_RANKING);
 			break;
 
-		case2:
+		case 2:
 		default:
 			Change_Scene(E_END);
 			break;

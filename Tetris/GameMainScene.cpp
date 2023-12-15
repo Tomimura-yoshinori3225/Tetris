@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "Block.h"
 #include "SceneManager.h"
+#include "InputControl.h"
 
 
 /******************************
@@ -91,6 +92,11 @@ void GameMainScene_Update(void)
 	Block_Update();
 
 	Score = Get_Line() * 50;
+
+	if (GetButtonDown(XINPUT_BUTTON_START) == TRUE)
+	{
+		Change_Scene(E_RANKING);
+	}
 
 	//ê∂ê¨Ç≈Ç´Ç»Ç≠Ç»Ç¡ÇΩÇÁ
 	if (Get_GenerateFlg() != TRUE)
